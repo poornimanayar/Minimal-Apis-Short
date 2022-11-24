@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MinimalApis/.vs
+/MinimalApis/MinimalApis.Demo/bin/Debug/net7.0
+/MinimalApis/MinimalApis.Demo/obj
