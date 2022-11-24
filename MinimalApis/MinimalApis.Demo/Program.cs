@@ -20,7 +20,7 @@ builder.Services.AddOutputCache(cacheOptions =>
     cacheOptions.AddPolicy("Expire30", builder => builder.Expire(TimeSpan.FromSeconds(30)));
 
     //define policy to vary cache by route param
-    cacheOptions.AddPolicy("VaryByRouteParam", builder => builder.SetVaryByRouteValue(new[] { "id" }).Expire(TimeSpan.FromSeconds(30)).Tag("person").Tag("person"));
+    cacheOptions.AddPolicy("VaryByRouteParam", builder => builder.SetVaryByRouteValue(new[] { "id" }).Expire(TimeSpan.FromSeconds(30)).Tag("person"));
 });
 
 builder.Services.AddRateLimiter(limiterOptions =>
