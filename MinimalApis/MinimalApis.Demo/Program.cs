@@ -204,8 +204,6 @@ app.MapGet("/person/{name}", (string name, PersonRepository repository) =>
     return await next.Invoke(invocationcontext);
 });
 
-
-
 app.Run();
 
 public class MinimalApiHandler
