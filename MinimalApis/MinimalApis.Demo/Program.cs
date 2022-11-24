@@ -64,12 +64,12 @@ builder.Services.AddRateLimiter(limiterOptions =>
             options.QueueLimit = 2;
         });
 
-     //handler for callback when limit is reached
+    //handler for callback when limit is reached
     // can be used with fixed window, sliding window and token bucket rate limiting
     //queue limit must be set to 0 for requests to ve rejected
     limiterOptions.OnRejected = (context, cancellationToken) =>
     {
-        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;       
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
         return new ValueTask();
     };
 });
@@ -178,6 +178,12 @@ app.MapGet("/person/filterbyid", (int[] ids, PersonRepository repository) =>
     app.Logger.LogInformation("==========================================");
     app.Logger.LogInformation($"PATH - {invocationContext.HttpContext.Request.Path}");
     app.Logger.LogInformation($"METHOD - {invocationContext.HttpContext.Request.Method}");
+    int[] ids = invocationContext.GetArgument<int[]>(0);
+
+    foreach (var id in ids)
+    {
+        app.Logger.LogInformation($"{id}");
+    }
     foreach (var header in invocationContext.HttpContext.Request.Headers)
     {
         app.Logger.LogInformation($"{header.Key} - {header.Value}");
@@ -196,7 +202,7 @@ app.MapGet("/person/{name}", (string name, PersonRepository repository) =>
 {
 
     var name = invocationcontext.HttpContext.GetRouteValue("name");
-    if (string.Equals(name.ToString(), "Voldemort", StringComparison.InvariantCultureIgnoreCase))
+    if (string.Equals(name?.ToString(), "Voldemort", StringComparison.InvariantCultureIgnoreCase))
     {
         return "Death Eaters are here..Watch out!!!!!!";
     }
